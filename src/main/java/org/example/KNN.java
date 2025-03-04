@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.List;
 
-public class KNN {
+public class KNN implements Algorithm<TableWithLabels,Integer,List<Double>> {
     private TableWithLabels table;
     // lo haremos con --> k = 1;
 
