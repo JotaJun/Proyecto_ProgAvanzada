@@ -21,7 +21,7 @@ public class RowWithLabel extends Row {
         return label;
     }
     @Override
-    public List<Double> conversorADoble(String[] data){
+    protected List<Double> conversorADoble(String[] data){
 
         List<Double> d = new ArrayList<>();
         for(int i = 0; i < data.length - 1; i++){

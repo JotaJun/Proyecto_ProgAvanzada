@@ -21,7 +21,7 @@ public class Row {
 
 
 
-    public List<Double> conversorADoble(String[] data){
+    protected List<Double> conversorADoble(String[] data){
 
         List<Double> d = new ArrayList<>();
         for(int i = 0; i < data.length; i++){
