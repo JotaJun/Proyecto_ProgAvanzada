@@ -1,15 +1,16 @@
-package org.example;
+package org.example.Algoritmos;
+
+import org.example.Excepciones.InvalidClusterNumberException;
+import org.example.Interfaces.Algorithm;
+import org.example.Tablas.Row;
+import org.example.Tablas.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class KMeans implements Algorithm<Table,Integer, List<Double>> {
-    private class InvalidClusterNumberException extends Exception {
-        public InvalidClusterNumberException(String message) {
-            super(message);
-        }
-    }
+public class KMeans implements Algorithm<Table, List<Double>> {
+
 
     private int numClusters;
     private int numIteraciones;
@@ -44,10 +45,10 @@ public class KMeans implements Algorithm<Table,Integer, List<Double>> {
         while(iteraciones < numIteraciones && NOmodificados != numClusters) {
             Double[][] vector = new Double[numClusters][data.getSizeRow()+1]; //La última posición será cuantos puntos(filas) he añadido a la suma
             NOmodificados = 0;
-            for (Row row : data.rows) {
+            for (Row row : data.getRows()) {
                 int grupo = estimate(row.getData());
                 for (int j = 0; j < vector[0].length - 1; j++) {
-                    vector[grupo][j] += row.getData().get(j);
+                    vector[grupo][j] += row.getData().get(j); //El error del test salta porque row.getData().get(j) es nulo;
                 }
                 vector[grupo][vector[0].length - 1]++; //Incrementar el contador de puntos añadidos al grupo
             }
@@ -64,7 +65,7 @@ public class KMeans implements Algorithm<Table,Integer, List<Double>> {
 
     public Integer estimate(List<Double> sample) {
         int cerca = 0;
-        Double distanciaMinima = CalcularDistancia(sample, clusters.get(0));
+        Double distanciaMinima = CalcularDistancia(sample, clusters.getFirst());
         for(int i = 1; i < clusters.size(); i++){
             Double nuevaDistancia = CalcularDistancia(sample, clusters.get(i));
             if (distanciaMinima > nuevaDistancia){

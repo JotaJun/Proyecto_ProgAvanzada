@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Tablas;
 
 import java.util.HashMap;
 

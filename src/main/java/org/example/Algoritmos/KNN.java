@@ -1,8 +1,11 @@
-package org.example;
+package org.example.Algoritmos;
+
+import org.example.Interfaces.Algorithm;
+import org.example.Tablas.TableWithLabels;
 
 import java.util.List;
 
-public class KNN implements Algorithm<TableWithLabels,Integer,List<Double>> {
+public class KNN implements Algorithm<TableWithLabels,List<Double>> {
     private TableWithLabels table;
     // lo haremos con --> k = 1;
 

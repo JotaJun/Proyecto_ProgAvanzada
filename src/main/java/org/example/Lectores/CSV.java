@@ -1,4 +1,9 @@
-package org.example;
+package org.example.Lectores;
+
+import org.example.Tablas.Row;
+import org.example.Tablas.RowWithLabel;
+import org.example.Tablas.Table;
+import org.example.Tablas.TableWithLabels;
 
 import java.io.File;
 import java.io.FileNotFoundException;

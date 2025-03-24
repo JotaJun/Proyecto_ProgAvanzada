@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Tablas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,10 @@ public class Table {
         this.rows = new ArrayList<>();
     }
 
+
+    public List<Row> getRows() {
+        return rows;
+    }
 
     public Row getRowAt(int row) {
 
