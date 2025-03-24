@@ -16,7 +16,7 @@ class SongRecSys {
     private RecSys recsys;
 
     SongRecSys(String method) throws Exception {
-        String sep = System.getProperty("file.separator");
+        String sep = "/";
         String ruta = "recommender";
 
         // File names (could be provided as arguments to the constructor to be more general)
@@ -49,7 +49,7 @@ class SongRecSys {
         this.recsys.initialise(tables.get(method+"test"), names);
 
         // Given a liked item, ask for a number of recomendations
-        String liked_name = "Lootkemia";
+        String liked_name = "Tonight";
         List<String> recommended_items = this.recsys.recommend(liked_name,5);
 
         // Display the recommendation text (to be replaced with graphical display with JavaFX implementation)

@@ -48,8 +48,17 @@ public class KMeans implements Algorithm<Table, List<Double>> {
             for (Row row : data.getRows()) {
                 int grupo = estimate(row.getData());
                 for (int j = 0; j < vector[0].length - 1; j++) {
-                    vector[grupo][j] += row.getData().get(j); //El error del test salta porque row.getData().get(j) es nulo;
+                    if(vector[grupo][j] == null)
+                        vector[grupo][j] = 0.0;/*Aqui comprobamos que el valor del
+                                                 vector sea nulo ya que al ser Inicializado como Double
+                                                 todos los valores se inicializan a nulo*/
+
+                    vector[grupo][j] += row.getData().get(j);
                 }
+                if(vector[grupo][vector[0].length - 1] == null)
+                    vector[grupo][vector[0].length - 1] = 0.0; /*Aqui comprobamos que el valor del
+                                                                vector sea nulo ya que al ser Inicializado como Double
+                                                                todos los valores se inicializan a nulo*/
                 vector[grupo][vector[0].length - 1]++; //Incrementar el contador de puntos añadidos al grupo
             }
             for(int k = 0; k < vector.length; k++){

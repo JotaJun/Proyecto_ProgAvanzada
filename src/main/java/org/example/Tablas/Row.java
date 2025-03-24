@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Row {
-    private List<Double> data;
+    private List<Double> data = new ArrayList<>();
 
     public Row(List<Double> data) {
         this.data = data;

@@ -24,7 +24,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RecSysTest {
 
-    private String separator = System.getProperty("file.separator");
+    private String separator = "/"; /*IMPORTANTE:
+                                       hemos modificiado esta linea ya que
+                                       el separador que cogia el programa era "\" en vez de "/"
+                                       y esto impedia que se leyese el fichero correctamente, una vez cambiado leía los tests*/
     // TODO: cambiar ruta si hace falta
     private String songsFolder = "recommender";
 
