@@ -6,6 +6,8 @@ package org.example;
 import org.example.Algoritmos.KMeans;
 import org.example.Algoritmos.KNN;
 import org.example.Algoritmos.RecSys;
+import org.example.CalculoDistancias.EuclideanDistance;
+import org.example.CalculoDistancias.ManhattanDistance;
 import org.example.Excepciones.InvalidClusterNumberException;
 import org.example.Excepciones.LikedItemNotFoundException;
 import org.example.Interfaces.Algorithm;
@@ -59,7 +61,7 @@ class RecSysTest {
             testTable = new org.example.Lectores.CSV().readTableWithLabels(songsFolder + separator + "songs_test.csv");
             testItemNames = readNames(songsFolder + separator + "songs_test_names.csv");
 
-            algorithm = new KNN();
+            algorithm = new KNN(new EuclideanDistance());
             recSys = new RecSys(algorithm);
             recSys.train(trainTable);
             recSys.initialise(testTable, testItemNames);
@@ -104,7 +106,7 @@ class RecSysTest {
             testTable = new CSV().readTableWithLabels(songsFolder + separator + "songs_test_withoutnames.csv");
             testItemNames = readNames(songsFolder + separator + "songs_test_names.csv");
 
-            algorithm = new KMeans(numClusters, numIterations, seed);
+            algorithm = new KMeans(numClusters, numIterations, seed, new ManhattanDistance());
             recSys = new RecSys(algorithm);
             recSys.train(trainTable);
             recSys.initialise(testTable, testItemNames);

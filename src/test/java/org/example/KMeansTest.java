@@ -6,6 +6,7 @@ package org.example;
 
 
 import org.example.Algoritmos.KMeans;
+import org.example.CalculoDistancias.ManhattanDistance;
 import org.example.Excepciones.InvalidClusterNumberException;
 import org.example.Lectores.CSV;
 import org.example.Tablas.TableWithLabels;
@@ -32,7 +33,7 @@ class KMeansTest {
     // TODO: En caso de manejar la excepción IOException en CSV, puedes eliminarla aquí
     void setUp() throws InvalidClusterNumberException, IOException {
         iris = new CSV().readTableWithLabels("iris.csv");
-        kMeans = new KMeans(irisClusters, numIterations, seed);
+        kMeans = new KMeans(irisClusters, numIterations, seed, new ManhattanDistance());
         kMeans.train(iris);
     }
 
@@ -60,13 +61,13 @@ class KMeansTest {
         assertNotEquals(class3, class5);
     }
 
-   /* @Test
+   @Test
     @DisplayName("KMeans train - more clusters than samples")
     void train_invalidClusters() {
-        kMeans = new KMeans(200, numIterations, seed);
+        kMeans = new KMeans(200, numIterations, seed, new ManhattanDistance());
         Exception e = assertThrows(InvalidClusterNumberException.class, () -> kMeans.train(iris));
         // TODO: reemplazar getNumRows() con método equivalente, si hace falta
-        System.out.println("Clusters: "+((InvalidClusterNumberException)e).getNumberOfCusters());
-        assertTrue(((InvalidClusterNumberException)e).getNumberOfCusters() > iris.getNumRows());
-    }*/
+        System.out.println("Clusters: "+((InvalidClusterNumberException)e).getClusterNumber());
+        assertTrue(((InvalidClusterNumberException)e).getClusterNumber() > iris.getSize());
+    }
 }

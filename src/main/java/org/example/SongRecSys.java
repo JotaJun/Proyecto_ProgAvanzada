@@ -3,6 +3,8 @@ package org.example;
 import org.example.Algoritmos.KMeans;
 import org.example.Algoritmos.KNN;
 import org.example.Algoritmos.RecSys;
+import org.example.CalculoDistancias.EuclideanDistance;
+import org.example.CalculoDistancias.ManhattanDistance;
 import org.example.Interfaces.Algorithm;
 import org.example.Lectores.CSV;
 import org.example.Tablas.Table;
@@ -28,8 +30,8 @@ class SongRecSys {
 
         // Algorithms
         Map<String, Algorithm> algorithms = new HashMap<>();
-        algorithms.put("knn",new KNN());
-        algorithms.put("kmeans",new KMeans(15, 200, 4321));
+        algorithms.put("knn",new KNN(new EuclideanDistance()));
+        algorithms.put("kmeans",new KMeans(15, 200, 4321, new ManhattanDistance()));
 
         // Tables
         Map<String, Table> tables = new HashMap<>();
@@ -49,7 +51,7 @@ class SongRecSys {
         this.recsys.initialise(tables.get(method+"test"), names);
 
         // Given a liked item, ask for a number of recomendations
-        String liked_name = "Tonight";
+        String liked_name = "Tech house";
         List<String> recommended_items = this.recsys.recommend(liked_name,5);
 
         // Display the recommendation text (to be replaced with graphical display with JavaFX implementation)

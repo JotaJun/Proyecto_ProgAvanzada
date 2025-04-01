@@ -2,6 +2,7 @@ package org.example.Algoritmos;
 
 import org.example.Excepciones.InvalidClusterNumberException;
 import org.example.Interfaces.Algorithm;
+import org.example.Interfaces.Distance;
 import org.example.Tablas.Row;
 import org.example.Tablas.Table;
 
@@ -11,24 +12,26 @@ import java.util.Random;
 
 public class KMeans implements Algorithm<Table, List<Double>> {
 
-
+    private Distance distance;
     private int numClusters;
     private int numIteraciones;
     private long seed;
     private List<List<Double>> clusters; // x
 
-    public KMeans(int numClusters, int numIteraciones, long seed){
+
+    public KMeans(int numClusters, int numIteraciones, long seed, Distance distance) {
         this.numClusters = numClusters;
         this.numIteraciones = numIteraciones;
         this.seed = seed;
         this.clusters = new ArrayList<List<Double>>();
+        this.distance = distance;
     }
 
 
     public void train(Table data) throws InvalidClusterNumberException {
         Random rand = new Random(seed);
         if(numClusters <= 0 || numClusters >= data.getSize()){
-            throw new InvalidClusterNumberException("El número de grupos debe estar entre 1 y "+data.getSize());
+            throw new InvalidClusterNumberException(numClusters);
         }
         int i = 0;
         while(i < numClusters){ //Clusters seleccionados
@@ -74,9 +77,9 @@ public class KMeans implements Algorithm<Table, List<Double>> {
 
     public Integer estimate(List<Double> sample) {
         int cerca = 0;
-        Double distanciaMinima = CalcularDistancia(sample, clusters.getFirst());
+        Double distanciaMinima = distance.calculateDistance(sample, clusters.getFirst());
         for(int i = 1; i < clusters.size(); i++){
-            Double nuevaDistancia = CalcularDistancia(sample, clusters.get(i));
+            Double nuevaDistancia = distance.calculateDistance(sample, clusters.get(i));
             if (distanciaMinima > nuevaDistancia){
                 distanciaMinima = nuevaDistancia;
                 cerca = i;
@@ -98,14 +101,14 @@ public class KMeans implements Algorithm<Table, List<Double>> {
         return true;
     }
 
-    private Double CalcularDistancia(List<Double> sample, List<Double> cluster){
+    /*private Double CalcularDistancia(List<Double> sample, List<Double> cluster){
         double res = 0.0;
 
         for (int i = 0; i < sample.size(); i++){
             res += Math.pow(cluster.get(i) - sample.get(i), 2);
         }
         return Math.sqrt(res);
-    }
+    }*/
 
 
 
