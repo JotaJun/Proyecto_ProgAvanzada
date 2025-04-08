@@ -1,5 +1,5 @@
 // TODO: Remplazar <nombre> por el nombre de tu paquete
-package org.example;
+package org.example.Pr3;
 
 // TODO: Pon los imports especificos a tu proyecto
 
