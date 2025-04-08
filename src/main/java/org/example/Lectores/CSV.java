@@ -71,10 +71,8 @@ public class CSV {
             }
             sc.close();
         }
-        catch(NullPointerException e){
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         }
 
 
