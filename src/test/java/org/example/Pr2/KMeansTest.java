@@ -5,7 +5,7 @@ package org.example.Pr2;
 
 
 
-import org.example.Algoritmos.KMeans;
+import org.example.Algoritmos.*;
 import org.example.CalculoDistancias.ManhattanDistance;
 import org.example.Excepciones.InvalidClusterNumberException;
 import org.example.Lectores.CSV;

@@ -59,9 +59,9 @@ public class KMeans implements Algorithm<Table, List<Double>> {
 
     public Integer estimate(List<Double> sample) {
         int cerca = 0;
-        Double distanciaMinima = distance.calculateDistance(sample, clusters.getFirst());
+        double distanciaMinima = distance.calculateDistance(sample, clusters.getFirst());
         for(int i = 1; i < clusters.size(); i++){
-            Double nuevaDistancia = distance.calculateDistance(sample, clusters.get(i));
+            double nuevaDistancia = distance.calculateDistance(sample, clusters.get(i));
             if (distanciaMinima > nuevaDistancia){
                 distanciaMinima = nuevaDistancia;
                 cerca = i;
