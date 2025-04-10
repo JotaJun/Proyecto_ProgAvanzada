@@ -3,7 +3,7 @@ package org.example.Pr2;
 
 // TODO: Pon los imports especificos a tu proyecto
 
-import org.example.Algoritmos.KMeans;
+import org.example.Algoritmos.*;
 import org.example.Algoritmos.KNN;
 import org.example.Algoritmos.RecSys;
 import org.example.CalculoDistancias.EuclideanDistance;
