@@ -25,10 +25,10 @@ public class KNN implements Algorithm<TableWithLabels,List<Double>> {
             throw new IllegalArgumentException("El tamaño de la muestra no corresponde al de la tabla!");
         String labelMasCercana = table.getRowAt(0).getLabel();
 
-        Double distanciaMinima = distance.calculateDistance(sample, table.getRowAt(0).getData());
+        double distanciaMinima = distance.calculateDistance(sample, table.getRowAt(0).getData());
 
         for( int i = 1; i < table.getSize(); i++){
-            Double comparar = distance.calculateDistance(sample, table.getRowAt(i).getData());
+            double comparar = distance.calculateDistance(sample, table.getRowAt(i).getData());
             if (comparar < distanciaMinima){
                 distanciaMinima = comparar;
                 labelMasCercana = table.getRowAt(i).getLabel();
@@ -38,12 +38,4 @@ public class KNN implements Algorithm<TableWithLabels,List<Double>> {
         return table.getLabelAsInteger(labelMasCercana);
     }
 
-   /* private Double CalcularDistancia(List<Double> sample, List<Double> lineaTable){
-        double res = 0.0;
-
-        for (int i = 0; i < sample.size(); i++){
-            res += Math.pow(lineaTable.get(i) - sample.get(i), 2);
-        }
-        return Math.sqrt(res);
-    }*/
 }

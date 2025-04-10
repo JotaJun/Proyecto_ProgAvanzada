@@ -23,46 +23,29 @@ public class KMeans implements Algorithm<Table, List<Double>> {
         this.numClusters = numClusters;
         this.numIteraciones = numIteraciones;
         this.seed = seed;
-        this.clusters = new ArrayList<List<Double>>();
+        this.clusters = new ArrayList<>();
         this.distance = distance;
     }
 
 
     public void train(Table data) throws InvalidClusterNumberException {
-        Random rand = new Random(seed);
         if(numClusters <= 0 || numClusters >= data.getSize()){
             throw new InvalidClusterNumberException(numClusters);
         }
-        int i = 0;
-        while(i < numClusters){ //Clusters seleccionados
-            Row aux = data.getRowAt(rand.nextInt(data.getSize()));
-            if(!clusters.contains(aux)){
-                clusters.add(new ArrayList<>(aux.getData()));
-                i++;
-            }
-        }
 
+        seleccionarClusters(data); //asignamos clusters iniciales
 
         int iteraciones = 0;
         int NOmodificados = 0;
         while(iteraciones < numIteraciones && NOmodificados != numClusters) {
-            Double[][] vector = new Double[numClusters][data.getSizeRow()+1]; //La última posición será cuantos puntos(filas) he añadido a la suma
+            double[][] vector = new double[numClusters][data.getSizeRow()+1]; //La última posición será cuantos puntos(filas) he añadido a la suma
             NOmodificados = 0;
             for (Row row : data.getRows()) {
                 int grupo = estimate(row.getData());
-                for (int j = 0; j < vector[0].length - 1; j++) {
-                    if(vector[grupo][j] == null)
-                        vector[grupo][j] = 0.0;/*Aqui comprobamos que el valor del
-                                                 vector sea nulo ya que al ser Inicializado como Double
-                                                 todos los valores se inicializan a nulo*/
-
+                for (int j = 0; j < vector[0].length - 1; j++)
                     vector[grupo][j] += row.getData().get(j);
-                }
-                if(vector[grupo][vector[0].length - 1] == null)
-                    vector[grupo][vector[0].length - 1] = 0.0; /*Aqui comprobamos que el valor del
-                                                                vector sea nulo ya que al ser Inicializado como Double
-                                                                todos los valores se inicializan a nulo*/
-                vector[grupo][vector[0].length - 1]++; //Incrementar el contador de puntos añadidos al grupo
+
+                vector[grupo][vector[0].length - 1]++; //Incrementar el numero de integrantes para el grupo al que pertenece
             }
             for(int k = 0; k < vector.length; k++){
                 if (!recalcularCentroide(vector[k], k))
@@ -73,7 +56,6 @@ public class KMeans implements Algorithm<Table, List<Double>> {
         }
 
     }
-
 
     public Integer estimate(List<Double> sample) {
         int cerca = 0;
@@ -89,7 +71,7 @@ public class KMeans implements Algorithm<Table, List<Double>> {
         return cerca;
     }
 
-    private boolean recalcularCentroide(Double[] sample, int grupo){
+    private boolean recalcularCentroide(double[] sample, int grupo){
         List<Double> centroid = new ArrayList<>();
         for(int i = 0; i < sample.length - 1; i++){
             centroid.add(sample[i]/sample[sample.length-1]);
@@ -101,16 +83,16 @@ public class KMeans implements Algorithm<Table, List<Double>> {
         return true;
     }
 
-    /*private Double CalcularDistancia(List<Double> sample, List<Double> cluster){
-        double res = 0.0;
-
-        for (int i = 0; i < sample.size(); i++){
-            res += Math.pow(cluster.get(i) - sample.get(i), 2);
+    private void seleccionarClusters(Table data){
+        Random rand = new Random(seed);
+        int i = 0;
+        while(i < numClusters){
+            Row aux = data.getRowAt(rand.nextInt(data.getSize()));
+            if(!clusters.contains(aux)){
+                clusters.add(new ArrayList<>(aux.getData()));
+                i++;
+            }
         }
-        return Math.sqrt(res);
-    }*/
-
-
-
+    }
 
 }
