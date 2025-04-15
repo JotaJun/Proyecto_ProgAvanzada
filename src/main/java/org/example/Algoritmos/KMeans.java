@@ -36,10 +36,10 @@ public class KMeans implements Algorithm<Table, List<Double>> {
         seleccionarClusters(data); //asignamos clusters iniciales
 
         int iteraciones = 0;
-        int NOmodificados = 0;
-        while(iteraciones < numIteraciones && NOmodificados != numClusters) {
-            double[][] vector = new double[numClusters][data.getSizeRow()+1]; //La última posición será cuantos puntos(filas) he añadido a la suma
-            NOmodificados = 0;
+        double[][] vector;
+
+        do{
+            vector = new double[numClusters][data.getSizeRow()+1]; //La última posición será cuantos puntos(filas) he añadido a la suma
             for (Row row : data.getRows()) {
                 int grupo = estimate(row.getData());
                 for (int j = 0; j < vector[0].length - 1; j++)
@@ -47,14 +47,19 @@ public class KMeans implements Algorithm<Table, List<Double>> {
 
                 vector[grupo][vector[0].length - 1]++; //Incrementar el numero de integrantes para el grupo al que pertenece
             }
-            for(int k = 0; k < vector.length; k++){
-                if (!recalcularCentroide(vector[k], k))
-                    NOmodificados++;
-
-            }
             iteraciones++;
-        }
+        }while(iteraciones < numIteraciones && modificarCentroides(vector));
 
+    }
+
+    private boolean modificarCentroides(double[][] v){ //modificar centroides y comprobar si no se han modificado
+        int noModificados = 0;
+        for(int k = 0; k < v.length; k++){
+            if (!recalcularCentroide(v[k], k))
+                noModificados++;
+
+        }
+        return noModificados != numClusters; //si es igual, significa que no se han modificado los centroides
     }
 
     public Integer estimate(List<Double> sample) {
