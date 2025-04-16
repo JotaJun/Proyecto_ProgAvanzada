@@ -4,23 +4,42 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
+
+
 public class AplicacionRecomendador extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
         VBox vboxIzquierda = new VBox(); // Contenedor principal
         vboxIzquierda.setPadding(new Insets(20,20,20,20));
         Label lab_elige_canc = new Label("ELIGE LA CANCIÓN QUE TE GUSTE"); // Texto no editable
         Button bt_obten_canc = new Button("OBTENER RECOMENDACIONES"); // Un botón, no hace nada
+        bt_obten_canc.setStyle("-fx-background-color: " + Colores.AMARILLO_SUAVE.getCode() + ";"
+        + "-fx-border-color: " + Colores.NEGRO.getCode() + ";"
+        + "-fx-border-width: 0.5px;");
+
+        //Shadow
+        DropShadow shadow = new DropShadow();
+        shadow.setOffsetX(4);
+        shadow.setOffsetY(4);
+        shadow.setColor(Colores.GRIS.getColor());
+        shadow.setRadius(10);
+        bt_obten_canc.setEffect(shadow);
+        //
 
         ListView<String> listaCanciones = new ListView();
         listaCanciones.getItems().add("Canciones del recomendador");
         vboxIzquierda.setSpacing(5);
-        vboxIzquierda.setStyle("-fx-background-color: #AEC6CF");
+        vboxIzquierda.setStyle("-fx-background-color: " + Colores.CELESTE_PASTEL.getCode() + ";");
         vboxIzquierda.getChildren().addAll(lab_elige_canc, listaCanciones, bt_obten_canc); // Añade elementos al contenedor
 
 // Añade el contenedor a la escena, y la escena al escenario
@@ -53,6 +72,10 @@ public class AplicacionRecomendador extends Application {
         Button bt_mas5 = new Button("+5");
         Button bt_menos5 = new Button("-5");
         Button bt_borrar_recs = new Button("Borrar las recomendaciones");
+        bt_borrar_recs.setEffect(shadow);
+
+
+        bt_borrar_recs.setStyle("-fx-background-color: " + Colores.AMARILLO_SUAVE.getCode() + ";");
         hboxNumRecs.setSpacing(5);
         hboxNumRecs.getChildren().addAll(num_rec, bt_menos5, bt_mas5, bt_borrar_recs);
 
@@ -67,7 +90,7 @@ public class AplicacionRecomendador extends Application {
         vboxDer.setPadding(new Insets(20,20,20,20));
         vboxDer.setSpacing(20);
         vboxDer.getChildren().addAll(hboxUnionRecYOpcion, hboxNumRecs, vboxRecomendaciones);
-        vboxDer.setStyle("-fx-background-color: #FFD1DC");
+        vboxDer.setStyle("-fx-background-color: " + Colores.ROSA_PASTEL.getCode() + ";");
         BorderPane escenaBorderPane = new BorderPane();
         escenaBorderPane.setLeft(vboxIzquierda);
         escenaBorderPane.setRight(vboxDer);
