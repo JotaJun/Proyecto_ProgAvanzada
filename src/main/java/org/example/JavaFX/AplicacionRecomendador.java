@@ -23,9 +23,11 @@ public class AplicacionRecomendador extends Application {
         vboxIzquierda.setPadding(new Insets(20,20,20,20));
         Label lab_elige_canc = new Label("ELIGE LA CANCIÓN QUE TE GUSTE"); // Texto no editable
         Button bt_obten_canc = new Button("OBTENER RECOMENDACIONES"); // Un botón, no hace nada
+        bt_obten_canc.setDisable(true);
         bt_obten_canc.setStyle("-fx-background-color: " + Colores.AMARILLO_SUAVE.getCode() + ";"
         + "-fx-border-color: " + Colores.NEGRO.getCode() + ";"
         + "-fx-border-width: 0.5px;");
+        bt_obten_canc.setDisable(true);
 
         //Shadow
         DropShadow shadow = new DropShadow();
@@ -41,7 +43,7 @@ public class AplicacionRecomendador extends Application {
         vboxIzquierda.setSpacing(5);
         vboxIzquierda.setStyle("-fx-background-color: " + Colores.CELESTE_PASTEL.getCode() + ";");
         vboxIzquierda.getChildren().addAll(lab_elige_canc, listaCanciones, bt_obten_canc); // Añade elementos al contenedor
-
+        listaCanciones.setOnMouseClicked(event -> bt_obten_canc.setDisable(false));
 // Añade el contenedor a la escena, y la escena al escenario
 
         VBox vboxGenero = new VBox();
@@ -69,6 +71,7 @@ public class AplicacionRecomendador extends Application {
 
         HBox hboxNumRecs = new HBox();
         Spinner<Integer> num_rec = new Spinner<>();
+        num_rec.setEditable(true);
         Button bt_mas5 = new Button("+5");
         Button bt_menos5 = new Button("-5");
         Button bt_borrar_recs = new Button("Borrar las recomendaciones");
@@ -85,6 +88,10 @@ public class AplicacionRecomendador extends Application {
         ListView<String> listaRecomendada =  new ListView<>();
         vboxRecomendaciones.setSpacing(5);
         vboxRecomendaciones.getChildren().addAll(lab_recomendado, listaRecomendada);
+        bt_obten_canc.setOnAction(event -> listaRecomendada.getItems().addAll("Cancion1","Cancion2","Cancion3","Cancion4","Cancion5"));
+        bt_borrar_recs.setOnAction(event -> listaRecomendada.getItems().removeAll(listaRecomendada.getItems()));
+
+
 
         VBox vboxDer = new VBox();
         vboxDer.setPadding(new Insets(20,20,20,20));
@@ -107,4 +114,6 @@ public class AplicacionRecomendador extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+
 }
