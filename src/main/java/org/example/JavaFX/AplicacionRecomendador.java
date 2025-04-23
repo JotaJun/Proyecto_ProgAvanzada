@@ -21,8 +21,8 @@ public class AplicacionRecomendador extends Application {
     public void start(Stage stage) throws Exception {
         VBox vboxIzquierda = new VBox(); // Contenedor principal
         vboxIzquierda.setPadding(new Insets(20,20,20,20));
-        Label lab_elige_canc = new Label("ELIGE LA CANCIÓN QUE TE GUSTE"); // Texto no editable
-        Button bt_obten_canc = new Button("OBTENER RECOMENDACIONES"); // Un botón, no hace nada
+        Label lab_elige_canc = new Label("ELIGE LA CANCIÓN QUE TE GUSTE");
+        Button bt_obten_canc = new Button("OBTENER RECOMENDACIONES");
         bt_obten_canc.setDisable(true);
         bt_obten_canc.setStyle("-fx-background-color: " + Colores.AMARILLO_SUAVE.getCode() + ";"
         + "-fx-border-color: " + Colores.NEGRO.getCode() + ";"
