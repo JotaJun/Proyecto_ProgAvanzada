@@ -115,7 +115,8 @@ public class ImplementacionVista implements  Vista{
     private HBox crearHBoxNumRecs(){
         HBox hboxNumRecs = new HBox();
         Spinner<Integer> num_rec = new Spinner<>();
-        num_rec.setEditable(true);
+        configurarSpinner(num_rec);
+
         Button bt_mas5 = new Button("+5");
         Button bt_menos5 = new Button("-5");
         Button bt_borrar_recs = new Button("Borrar las recomendaciones");
@@ -125,6 +126,17 @@ public class ImplementacionVista implements  Vista{
         hboxNumRecs.getChildren().addAll(num_rec, bt_menos5, bt_mas5, bt_borrar_recs);
 
         return hboxNumRecs;
+
+    }
+
+    private void configurarSpinner(Spinner<Integer> spinner){
+        spinner.setEditable(true);
+
+        spinner.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*"))
+                spinner.getEditor().setText(oldValue);
+
+        });
 
     }
 
