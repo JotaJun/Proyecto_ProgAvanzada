@@ -17,6 +17,7 @@ public class ImplementacionVista implements  Vista{
     private Modelo modelo;
     private Stage stage;
     private DropShadow shadow;
+    private Spinner<Integer> num_rec;
 
     public ImplementacionVista(Stage stage){
         this.stage = stage;
@@ -114,11 +115,15 @@ public class ImplementacionVista implements  Vista{
 
     private HBox crearHBoxNumRecs(){
         HBox hboxNumRecs = new HBox();
-        Spinner<Integer> num_rec = new Spinner<>();
+        num_rec = new Spinner<>(0, 50, 0); //límites núm rec
         configurarSpinner(num_rec);
 
         Button bt_mas5 = new Button("+5");
+        bt_mas5.setOnAction(actionEvent -> pulsarBoton5(1));
+
         Button bt_menos5 = new Button("-5");
+        bt_menos5.setOnAction(actionEvent -> pulsarBoton5(-1));
+
         Button bt_borrar_recs = new Button("Borrar las recomendaciones");
         bt_borrar_recs.setEffect(shadow);
         bt_borrar_recs.setStyle("-fx-background-color: " + Colores.AMARILLO_SUAVE.getCode() + ";");
@@ -187,6 +192,15 @@ public class ImplementacionVista implements  Vista{
 
     @Override
     public void borrarRecomendacion() {
+
+    }
+
+
+    private void pulsarBoton5(int i){
+        num_rec.increment(5*i);
+    }
+
+    private void borrarRecomendaciones(){ //Se hace aquí dentro de la vista también, no hará falta llamar al controlador
 
     }
 
