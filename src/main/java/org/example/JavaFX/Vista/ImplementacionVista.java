@@ -4,7 +4,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -13,7 +12,7 @@ import org.example.JavaFX.Colores;
 import org.example.JavaFX.Modelo.Modelo;
 import org.example.JavaFX.Controlador.Controlador;
 
-public class ImplementacionVista {
+public class ImplementacionVista implements  Vista{
     private Controlador controlador;
     private Modelo modelo;
     private Stage stage;
@@ -148,8 +147,6 @@ public class ImplementacionVista {
         vboxDer.setStyle("-fx-background-color: " + Colores.ROSA_PASTEL.getCode() + ";");
 
         return vboxDer;
-
-
     }
 
     private BorderPane crearEsquemaEscena(VBox VBoxIzq, VBox VBoxDer){
@@ -161,5 +158,24 @@ public class ImplementacionVista {
         return escenaBorderPane;
     }
 
+    @Override
+    public void setModelo(Modelo modelo){
+        this.modelo = modelo;
+    }
+
+    @Override
+    public void setControlador(Controlador controlador){
+        this.controlador = controlador;
+    }
+
+    @Override
+    public void mostrarRecomendacion() {
+
+    }
+
+    @Override
+    public void borrarRecomendacion() {
+
+    }
 
 }
