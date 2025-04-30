@@ -34,11 +34,11 @@ public class ImplementacionVista implements  Vista{
 
         HBox HBoxUnionGeneroYOpciones = crearUnionGeneroYOpciones(VBoxGenero, VBoxOpciones);
 
-        HBox HBoxNUmRecs = crearHBoxNumRecs();
+        VBox VBoxNUmRecs = crearVBoxNumRecs();
 
         VBox VBoxRecomendaciones = crearVBoxRecomendaciones();
 
-        VBox VBoxDer = crearVBoxDerecha(HBoxUnionGeneroYOpciones, HBoxNUmRecs, VBoxRecomendaciones);
+        VBox VBoxDer = crearVBoxDerecha(HBoxUnionGeneroYOpciones, VBoxNUmRecs, VBoxRecomendaciones);
 
         BorderPane esquemaEscena = crearEsquemaEscena(VBoxIzq, VBoxDer);
 
@@ -113,9 +113,9 @@ public class ImplementacionVista implements  Vista{
         return hboxUnionGeneroYOpciones;
     }
 
-    private HBox crearHBoxNumRecs(){
+    private VBox crearVBoxNumRecs(){
         HBox hboxNumRecs = new HBox();
-        num_rec = new Spinner<>(0, 50, 0); //límites núm rec
+        num_rec = new Spinner<>(1, 50, 0); //límites núm rec
         configurarSpinner(num_rec);
 
         Button bt_mas5 = new Button("+5");
@@ -124,13 +124,19 @@ public class ImplementacionVista implements  Vista{
         Button bt_menos5 = new Button("-5");
         bt_menos5.setOnAction(actionEvent -> pulsarBoton5(-1));
 
-        Button bt_borrar_recs = new Button("Borrar las recomendaciones");
+        Button bt_borrar_recs = new Button("BORRAR LAS RECOMENDACIONES");
         bt_borrar_recs.setEffect(shadow);
         bt_borrar_recs.setStyle("-fx-background-color: " + Colores.AMARILLO_SUAVE.getCode() + ";");
         hboxNumRecs.setSpacing(5);
         hboxNumRecs.getChildren().addAll(num_rec, bt_menos5, bt_mas5, bt_borrar_recs);
 
-        return hboxNumRecs;
+        Label lb_numrec = new Label("NÚMERO DE RECOMENDACIONES");
+        VBox VBoxNumRecs = new VBox();
+        VBoxNumRecs.setSpacing(5);
+        VBoxNumRecs.getChildren().addAll(lb_numrec, hboxNumRecs);
+
+
+        return VBoxNumRecs;
 
     }
 
@@ -156,11 +162,12 @@ public class ImplementacionVista implements  Vista{
         return vboxRecomendaciones;
     }
 
-    private VBox crearVBoxDerecha(HBox hboxUnionRecYOpcion, HBox hboxNumRecs, VBox vboxRecomendaciones){
+    private VBox crearVBoxDerecha(HBox hboxUnionRecYOpcion, VBox vboxNumRecs, VBox vboxRecomendaciones){
         VBox vboxDer = new VBox();
         vboxDer.setPadding(new Insets(20,20,20,20));
         vboxDer.setSpacing(20);
-        vboxDer.getChildren().addAll(hboxUnionRecYOpcion, hboxNumRecs, vboxRecomendaciones);
+
+        vboxDer.getChildren().addAll(hboxUnionRecYOpcion, vboxNumRecs, vboxRecomendaciones);
         vboxDer.setStyle("-fx-background-color: " + Colores.ROSA_PASTEL.getCode() + ";");
 
         return vboxDer;
