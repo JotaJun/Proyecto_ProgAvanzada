@@ -65,9 +65,7 @@ public class ImplementacionVista implements  Vista{
         Label lab_elige_canc = new Label("ELIGE LA CANCIÓN QUE TE GUSTE"); // Texto no editable
         Button bt_obten_canc = new Button("OBTENER RECOMENDACIONES"); // Un botón, no hace nada
         bt_obten_canc.setDisable(true);
-        bt_obten_canc.setStyle("-fx-background-color: " + Colores.AMARILLO_SUAVE.getCode() + ";"
-                + "-fx-border-color: " + Colores.NEGRO.getCode() + ";"
-                + "-fx-border-width: 0.5px;");
+        bt_obten_canc.setStyle("-fx-background-color: " + Colores.AMARILLO_SUAVE.getCode() + ";");
         bt_obten_canc.setEffect(shadow);
 
         ListView<String> listaCanciones = new ListView<>();
@@ -75,7 +73,7 @@ public class ImplementacionVista implements  Vista{
         vboxIzquierda.setSpacing(5);
         vboxIzquierda.setStyle("-fx-background-color: " + Colores.CELESTE_PASTEL.getCode() + ";");
         vboxIzquierda.getChildren().addAll(lab_elige_canc, listaCanciones, bt_obten_canc); // Añade elementos al contenedor
-        listaCanciones.setOnMouseClicked(event -> bt_obten_canc.setDisable(false));
+        listaCanciones.setOnMouseClicked(event -> bt_obten_canc.setDisable(false)); ///CAMBIAR
 
         return vboxIzquierda;
     }
@@ -127,6 +125,7 @@ public class ImplementacionVista implements  Vista{
         Button bt_borrar_recs = new Button("BORRAR LAS RECOMENDACIONES");
         bt_borrar_recs.setEffect(shadow);
         bt_borrar_recs.setStyle("-fx-background-color: " + Colores.AMARILLO_SUAVE.getCode() + ";");
+        bt_borrar_recs.setEffect(shadow);
         hboxNumRecs.setSpacing(5);
         hboxNumRecs.getChildren().addAll(num_rec, bt_menos5, bt_mas5, bt_borrar_recs);
 
