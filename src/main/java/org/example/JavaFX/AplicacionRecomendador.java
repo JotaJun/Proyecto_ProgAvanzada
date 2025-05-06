@@ -28,6 +28,7 @@ public class AplicacionRecomendador extends Application {
         controlador.setVista(vista);
         controlador.setModelo(modelo);
         vista.setModelo(modelo);
+        vista.setControlador(controlador);
 
         vista.creaGUI();
     }
