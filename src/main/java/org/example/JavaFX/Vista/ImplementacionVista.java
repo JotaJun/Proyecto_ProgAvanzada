@@ -13,7 +13,8 @@ import org.example.JavaFX.Colores;
 import org.example.JavaFX.Modelo.Modelo;
 import org.example.JavaFX.Controlador.Controlador;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 public class ImplementacionVista implements  Vista{
     private Controlador controlador;
@@ -32,7 +33,7 @@ public class ImplementacionVista implements  Vista{
         this.stage = stage;
     }
 
-    public void creaGUI(){
+    public void creaGUI() {
         crearSombra();
 
         VBox VBoxIzq = crearVBoxIzq();
@@ -68,20 +69,22 @@ public class ImplementacionVista implements  Vista{
         shadow.setRadius(10);
     }
 
-    private VBox crearVBoxIzq(){
+    private VBox crearVBoxIzq() {
         VBox vboxIzquierda = new VBox(); // Contenedor principal
         vboxIzquierda.setPadding(new Insets(20,20,20,20));
-        Label lab_elige_canc = new Label("ELIGE LA CANCIÓN QUE TE GUSTE"); // Texto no editable
-        bt_obten_canc = new Button("OBTENER RECOMENDACIONES"); // Un botón, no hace nada
+        Label lab_elige_canc = new Label("ELIGE LA CANCIÓN QUE TE GUSTE");
+        bt_obten_canc = new Button("OBTENER RECOMENDACIONES");
         bt_obten_canc.setDisable(true);
         bt_obten_canc.setStyle("-fx-background-color: " + Colores.AMARILLO_SUAVE.getCode() + ";");
         bt_obten_canc.setEffect(shadow);
+        bt_obten_canc.setOnAction(e -> solicitarNuevasRecomendaciones());
 
         listaCanciones = new ListView<>();
         vboxIzquierda.setSpacing(5);
         vboxIzquierda.setStyle("-fx-background-color: " + Colores.CELESTE_PASTEL.getCode() + ";");
         vboxIzquierda.getChildren().addAll(lab_elige_canc, listaCanciones, bt_obten_canc); // Añade elementos al contenedor
         listaCanciones.setOnMouseClicked(event -> bt_obten_canc.setDisable(false)); ///CAMBIAR
+        mostrarListaCanciones();
 
         return vboxIzquierda;
     }
@@ -166,6 +169,7 @@ public class ImplementacionVista implements  Vista{
         Label lab_recomendado = new Label("TE RECOMENDAMOS ESTAS CANCIONES");
 
         listaRecomendada =  new ListView<>();
+        listaRecomendada.setSelectionModel(null);
         vboxRecomendaciones.setSpacing(5);
         vboxRecomendaciones.getChildren().addAll(lab_recomendado, listaRecomendada);
 
@@ -203,9 +207,16 @@ public class ImplementacionVista implements  Vista{
     }
 
     @Override
-    public void mostrarRecomendacion() {
+    public void solicitarNuevasRecomendaciones() {
         controlador.solicitarDatosRecomendar();
     }
+
+    @Override
+    public void mostrarNuevasRecomendaciones(List<String> cancionesRecomendadas){
+        listaRecomendada.getItems().addAll(cancionesRecomendadas);
+    }
+
+
 
     private void pulsarBoton5(int i){
         num_rec.increment(5*i);
@@ -217,12 +228,8 @@ public class ImplementacionVista implements  Vista{
     }
 
     @Override
-    public ArrayList<String> getListaCanciones(){
-        if(listaRecomendada.getItems().isEmpty()){
-            crearPopUpError("Lista de recomendaciones vacía");
-        }
-
-        return new ArrayList<>(listaRecomendada.getItems());
+    public String getCancionSeleccionada(){
+        return listaCanciones.getSelectionModel().getSelectedItem();
     }
 
     @Override
@@ -264,8 +271,13 @@ public class ImplementacionVista implements  Vista{
 
         VBoxError.setAlignment(Pos.CENTER);
         VBoxError.setSpacing(5);
-        ventanaError.setScene(new Scene(VBoxError));
+        ventanaError.setScene(new Scene(VBoxError, 200, 100));
         ventanaError.show();
+    }
+
+    @Override
+    public void mostrarListaCanciones() {
+        listaCanciones.getItems().addAll(modelo.getListaCanciones());
     }
 
 }

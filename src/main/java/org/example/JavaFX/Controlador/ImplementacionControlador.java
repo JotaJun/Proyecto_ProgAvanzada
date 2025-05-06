@@ -1,10 +1,7 @@
 package org.example.JavaFX.Controlador;
 
-import javafx.scene.control.ListView;
 import org.example.JavaFX.Modelo.Modelo;
 import org.example.JavaFX.Vista.Vista;
-
-import java.util.ArrayList;
 
 public class ImplementacionControlador implements  Controlador{
     private Vista vista;
@@ -21,13 +18,9 @@ public class ImplementacionControlador implements  Controlador{
     }
 
     @Override
-    public void solicitarDatosRecomendar(){
+    public void solicitarDatosRecomendar() {
 
-        ArrayList<String> listaRecomendaciones = vista.getListaCanciones();
-
-
-        if(listaRecomendaciones.isEmpty())
-            return;
+        String cancionSeleccionada = vista.getCancionSeleccionada();
 
 
         String algoritmo = vista.getAlgoritmo();
@@ -44,6 +37,7 @@ public class ImplementacionControlador implements  Controlador{
         int numeroRecomendaciones = vista.getCantidadRecomendaciones();
 
 
-        modelo.obtenerCanciones(listaRecomendaciones, algoritmo, distancia, numeroRecomendaciones);
+        modelo.recomendarCanciones(cancionSeleccionada, algoritmo, distancia, numeroRecomendaciones);
+
     }
 }
