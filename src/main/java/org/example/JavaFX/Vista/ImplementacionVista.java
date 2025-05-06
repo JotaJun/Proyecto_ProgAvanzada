@@ -267,11 +267,14 @@ public class ImplementacionVista implements  Vista{
         VBox VBoxError = new VBox();
         Label labelError = new Label(mensaje);
         Button botonError = new Button("Cerrar ventana");
+        botonError.setEffect(shadow);
         botonError.setOnAction(actionEvent -> ventanaError.close());
         VBoxError.getChildren().addAll(labelError, botonError);
 
         VBoxError.setAlignment(Pos.CENTER);
         VBoxError.setSpacing(5);
+        VBoxError.setStyle("-fx-background-color: " + Colores.ROSA_PASTEL.getCode() + ";");
+        botonError.setStyle("-fx-background-color: " + Colores.AMARILLO_SUAVE.getCode() + ";");
         ventanaError.setScene(new Scene(VBoxError, 200, 100));
         ventanaError.show();
     }
