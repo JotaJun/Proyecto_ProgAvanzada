@@ -16,7 +16,7 @@ public class KMeans implements Algorithm<Table, List<Double>> {
     private int numClusters;
     private int numIteraciones;
     private long seed;
-    private List<List<Double>> clusters; // x
+    private List<List<Double>> clusters;
 
 
     public KMeans(int numClusters, int numIteraciones, long seed, Distance distance) {
@@ -42,9 +42,10 @@ public class KMeans implements Algorithm<Table, List<Double>> {
             vector = new double[numClusters][data.getSizeRow()+1]; //La última posición será cuantos puntos(filas) he añadido a la suma
             for (Row row : data.getRows()) {
                 int grupo = estimate(row.getData());
-                for (int j = 0; j < vector[0].length - 1; j++)
-                    vector[grupo][j] += row.getData().get(j);
+                for (int j = 0; j < vector[0].length - 1; j++) {
 
+                    vector[grupo][j] += row.getData().get(j);
+                }
                 vector[grupo][vector[0].length - 1]++; //Incrementar el numero de integrantes para el grupo al que pertenece
             }
             iteraciones++;
@@ -65,7 +66,7 @@ public class KMeans implements Algorithm<Table, List<Double>> {
     public Integer estimate(List<Double> sample) {
         int cerca = 0;
         double distanciaMinima = distance.calculateDistance(sample, clusters.getFirst());
-        for(int i = 1; i < clusters.size(); i++){
+        for(int i = 1; i < numClusters; i++){
             double nuevaDistancia = distance.calculateDistance(sample, clusters.get(i));
             if (distanciaMinima > nuevaDistancia){
                 distanciaMinima = nuevaDistancia;
@@ -93,7 +94,7 @@ public class KMeans implements Algorithm<Table, List<Double>> {
         int i = 0;
         while(i < numClusters){
             Row aux = data.getRowAt(rand.nextInt(data.getSize()));
-            if(!clusters.contains(aux)){
+            if(!clusters.contains(aux.getData())){
                 clusters.add(new ArrayList<>(aux.getData()));
                 i++;
             }

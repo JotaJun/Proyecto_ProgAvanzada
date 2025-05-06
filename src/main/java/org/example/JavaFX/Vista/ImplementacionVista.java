@@ -213,6 +213,7 @@ public class ImplementacionVista implements  Vista{
 
     @Override
     public void mostrarNuevasRecomendaciones(List<String> cancionesRecomendadas){
+        listaRecomendada.getItems().clear();
         listaRecomendada.getItems().addAll(cancionesRecomendadas);
     }
 

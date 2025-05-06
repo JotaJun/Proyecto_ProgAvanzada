@@ -75,8 +75,6 @@ public class ImplementacionModelo implements  Modelo{
     public void recomendarCanciones(String cancionSeleccionada, String algoritmo, String distancia, int numeroRecomendaciones) {
         List<String> names = leerFicheroNombres();
 
-        System.out.println(distancia);
-        System.out.println(algoritmo);
 
         algoritmo = switch (algoritmo) {
             case "Genero" -> "knn";
@@ -84,10 +82,8 @@ public class ImplementacionModelo implements  Modelo{
             default -> null;
         };
 
-        System.out.println(algoritmo);
 
-
-        asignarDistanciaAlgoritmos(algoritmo);
+        asignarDistanciaAlgoritmos(distancia);
 
         try{
 
