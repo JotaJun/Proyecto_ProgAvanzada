@@ -1,8 +1,6 @@
 package org.example.JavaFX.Modelo;
 
-import org.example.Algoritmos.KMeans;
-import org.example.Algoritmos.KNN;
-import org.example.Algoritmos.RecSys;
+import org.example.Algoritmos.*;
 import org.example.CalculoDistancias.EuclideanDistance;
 import org.example.CalculoDistancias.ManhattanDistance;
 import org.example.Excepciones.InvalidClusterNumberException;
@@ -75,37 +73,19 @@ public class ImplementacionModelo implements  Modelo{
     public void recomendarCanciones(String cancionSeleccionada, String algoritmo, String distancia, int numeroRecomendaciones) {
         List<String> names = leerFicheroNombres();
 
-
-        algoritmo = switch (algoritmo) {
-            case "Genero" -> "knn";
-            case "Similitudes" -> "kmeans";
-            default -> null;
-        };
-
+        algoritmo = traducirAlgoritmo(algoritmo);
 
         asignarDistanciaAlgoritmos(distancia);
 
         try{
-
-            this.recSys = new RecSys(algorithms.get(algoritmo));
-            this.recSys.train(tables.get(algoritmo + "train"));
-            this.recSys.initialise(tables.get(algoritmo+"test"), names);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        catch (InvalidClusterNumberException e){
-            e.printStackTrace();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        try{
             recSys = new RecSys(algorithms.get(algoritmo));
-            recSys.train(tables.get(algoritmo+"train"));
+            recSys.train(tables.get(algoritmo + "train"));
             recSys.initialise(tables.get(algoritmo+"test"), names);
         }
-        catch (Exception e) {
+        catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
 
@@ -116,15 +96,20 @@ public class ImplementacionModelo implements  Modelo{
         catch (LikedItemNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
-
+    private String traducirAlgoritmo(String alg){
+        return switch (alg) {
+            case "Genero" -> "knn";
+            case "Similitudes" -> "kmeans";
+            default -> null;
+        };
     }
 
 
     @Override
     public List<String> getListaCanciones() {
-        List<String> songNames = leerFicheroNombres();
-        return songNames;
+        return leerFicheroNombres();
     }
 
     private List<String> leerFicheroNombres() {
