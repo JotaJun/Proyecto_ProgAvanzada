@@ -125,7 +125,7 @@ public class ImplementacionVista implements  Vista{
 
     private VBox crearVBoxNumRecs(){
         HBox hboxNumRecs = new HBox();
-        num_rec = new Spinner<>(1, 50, 0); //límites núm rec
+        num_rec = new Spinner<>(1, 50, 1); //límites núm rec
         configurarSpinner(num_rec);
 
         Button bt_mas5 = new Button("+5");
