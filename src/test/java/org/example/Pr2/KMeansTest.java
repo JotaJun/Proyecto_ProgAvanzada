@@ -4,7 +4,6 @@ package org.example.Pr2;
 // TODO: Pon los imports especificos a tu proyecto
 
 
-
 import org.example.Algoritmos.*;
 import org.example.CalculoDistancias.ManhattanDistance;
 import org.example.Excepciones.InvalidClusterNumberException;

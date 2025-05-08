@@ -13,7 +13,6 @@ import org.example.JavaFX.Colores;
 import org.example.JavaFX.Modelo.Modelo;
 import org.example.JavaFX.Controlador.Controlador;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 public class ImplementacionVista implements  Vista{
@@ -54,7 +53,7 @@ public class ImplementacionVista implements  Vista{
 
         stage.setScene(new Scene(esquemaEscena));
 
-        stage.setTitle("Recomendador de canciones"); // Título de ventana
+        stage.setTitle("Recomendador de canciones");
 
         stage.setResizable(false);
 
@@ -70,7 +69,7 @@ public class ImplementacionVista implements  Vista{
     }
 
     private VBox crearVBoxIzq() {
-        VBox vboxIzquierda = new VBox(); // Contenedor principal
+        VBox vboxIzquierda = new VBox();
         vboxIzquierda.setPadding(new Insets(20,20,20,20));
         Label lab_elige_canc = new Label("ELIGE LA CANCIÓN QUE TE GUSTE");
         bt_obten_canc = new Button("OBTENER RECOMENDACIONES");
@@ -82,8 +81,8 @@ public class ImplementacionVista implements  Vista{
         listaCanciones = new ListView<>();
         vboxIzquierda.setSpacing(5);
         vboxIzquierda.setStyle("-fx-background-color: " + Colores.CELESTE_PASTEL.getCode() + ";");
-        vboxIzquierda.getChildren().addAll(lab_elige_canc, listaCanciones, bt_obten_canc); // Añade elementos al contenedor
-        listaCanciones.setOnMouseClicked(event -> bt_obten_canc.setDisable(false)); ///CAMBIAR
+        vboxIzquierda.getChildren().addAll(lab_elige_canc, listaCanciones, bt_obten_canc);
+        listaCanciones.setOnMouseClicked(event -> bt_obten_canc.setDisable(false));
         mostrarListaCanciones();
 
         return vboxIzquierda;
@@ -217,15 +216,15 @@ public class ImplementacionVista implements  Vista{
         listaRecomendada.getItems().addAll(cancionesRecomendadas);
     }
 
-
-
     private void pulsarBoton5(int i){
         num_rec.increment(5*i);
     }
+
     @Override
-    public void borrarRecomendaciones(){ //Se hace aquí dentro de la vista también, no hará falta llamar al controlador
+    public void borrarRecomendaciones(){
         listaRecomendada.getItems().clear();
         bt_obten_canc.setDisable(true);
+        listaCanciones.getSelectionModel().clearSelection();
     }
 
     @Override
@@ -241,8 +240,8 @@ public class ImplementacionVista implements  Vista{
             return null;
         }
         RadioButton selectedRadioButton = (RadioButton) temp;
-        String selectedText = selectedRadioButton.getText();
-        return selectedText;
+
+        return selectedRadioButton.getText();
     }
 
     @Override

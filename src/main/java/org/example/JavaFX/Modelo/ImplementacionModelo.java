@@ -3,7 +3,6 @@ package org.example.JavaFX.Modelo;
 import org.example.Algoritmos.*;
 import org.example.CalculoDistancias.EuclideanDistance;
 import org.example.CalculoDistancias.ManhattanDistance;
-import org.example.Excepciones.InvalidClusterNumberException;
 import org.example.Excepciones.LikedItemNotFoundException;
 import org.example.Interfaces.Algorithm;
 import org.example.Interfaces.Distance;
@@ -77,17 +76,7 @@ public class ImplementacionModelo implements  Modelo{
 
         asignarDistanciaAlgoritmos(distancia);
 
-        try{
-            recSys = new RecSys(algorithms.get(algoritmo));
-            recSys.train(tables.get(algoritmo + "train"));
-            recSys.initialise(tables.get(algoritmo+"test"), names);
-        }
-        catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        utilizarRecSys(algoritmo, names);
 
         try {
             List<String> cancionesRecomendadas = recSys.recommend(cancionSeleccionada, numeroRecomendaciones);
@@ -104,6 +93,20 @@ public class ImplementacionModelo implements  Modelo{
             case "Similitudes" -> "kmeans";
             default -> null;
         };
+    }
+
+    private void utilizarRecSys(String alg, List<String> names){
+        try{
+            recSys = new RecSys(algorithms.get(alg));
+            recSys.train(tables.get(alg + "train"));
+            recSys.initialise(tables.get(alg+"test"), names);
+        }
+        catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
