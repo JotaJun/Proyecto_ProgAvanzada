@@ -21,7 +21,7 @@ public class ImplementacionModelo implements  Modelo{
     private String sep = "/";
     private String ruta = "recommender";
     private Map<String,String> filenames;
-    Map<String, Algorithm> algorithms;
+    Map<String, Algorithm> algorithms = new HashMap<>();
     Map<String, Table> tables;
     Map<String, Distance> distances;
 
@@ -47,7 +47,6 @@ public class ImplementacionModelo implements  Modelo{
     }
 
     private void asignarDistanciaAlgoritmos(String distancia){
-        algorithms = new HashMap<>();
         algorithms.put("knn",new KNN(distances.get(distancia)));
         algorithms.put("kmeans",new KMeans(15, 200, 4321, distances.get(distancia)));
     }
